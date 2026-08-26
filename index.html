@@ -25,9 +25,9 @@
             --neon-green: #39ff14;
             --neon-green-glow: rgba(57, 255, 20, 0.4);
             --neon-orange: #ff6a00;
+            --neon-red: #ff0040;
             --dark-bg: #050508;
-            --dark-surface: #0a0a10;
-            --card-bg: rgba(15, 15, 26, 0.85);
+            --card-bg: rgba(15, 15, 26, 0.88);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-primary: #f0f0f8;
             --text-secondary: #8a8ab0;
@@ -38,7 +38,6 @@
             --radius-xl: 32px;
             --transition-fast: 0.2s ease;
             --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
         }
 
         html {
@@ -55,24 +54,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
         ::-webkit-scrollbar-thumb {
             background: #1a1a2e;
             border: 1px solid var(--neon-blue-glow);
             border-radius: 5px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-blue);
-        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
 
         /* ==========================================================================
-           2. CANVAS & ANIMATED BACKGROUNDS
+           2. CANVAS & CYBER BACKGROUNDS
            ========================================================================== */
         #bgCanvas {
             position: fixed;
@@ -153,7 +146,7 @@
 
         .navbar.scrolled {
             top: 0;
-            background: rgba(5, 5, 8, 0.92);
+            background: rgba(5, 5, 8, 0.94);
             border-bottom-color: rgba(0, 212, 255, 0.15);
             padding: 12px 0;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -216,13 +209,8 @@
             transition: var(--transition-fast);
         }
 
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
 
         .nav-controls {
             display: flex;
@@ -271,7 +259,7 @@
         }
 
         /* ==========================================================================
-           4. HERO SECTION & CTA
+           4. HERO SECTION
            ========================================================================== */
         .hero {
             min-height: 100vh;
@@ -327,10 +315,7 @@
             letter-spacing: -1px;
         }
 
-        .hero-title .text-white {
-            color: #fff;
-            display: block;
-        }
+        .hero-title .text-white { color: #fff; display: block; }
 
         .hero-title .text-gradient {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
@@ -396,7 +381,7 @@
         }
 
         /* ==========================================================================
-           5. LIVE SERVER WIDGET & METRICS
+           5. METRICS BAR
            ========================================================================== */
         .server-metrics-bar {
             max-width: 1300px;
@@ -454,7 +439,7 @@
         .metric-online { color: var(--neon-green) !important; }
 
         /* ==========================================================================
-           6. SECTION HEADERS & GENERAL CARDS
+           6. SECTIONS COMMON
            ========================================================================== */
         section {
             padding: 100px 30px;
@@ -464,7 +449,7 @@
 
         .section-header {
             text-align: center;
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto 70px;
         }
 
@@ -495,7 +480,7 @@
         }
 
         /* ==========================================================================
-           7. FEATURED GAMES SHOWCASE
+           7. GAMES SHOWCASE
            ========================================================================== */
         .games-showcase-grid {
             display: grid;
@@ -637,21 +622,21 @@
         }
 
         /* ==========================================================================
-           8. SYSTEM REQUIREMENTS & HARDWARE SCANNER
+           8. SYSTEM REQUIREMENTS & ADVANCED HARDWARE CALCULATOR
            ========================================================================== */
         .sys-req-wrapper {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--radius-xl);
-            padding: 60px;
+            padding: 50px;
             backdrop-filter: blur(20px);
         }
 
         .sys-tables-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
         @media(max-width: 900px) {
@@ -662,14 +647,14 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: var(--radius-lg);
-            padding: 35px;
+            padding: 30px;
         }
 
         .sys-box-header {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -678,101 +663,176 @@
         .header-min { color: var(--neon-orange); }
         .header-rec { color: var(--neon-green); }
 
-        .sys-rows {
-            list-style: none;
-        }
+        .sys-rows { list-style: none; }
 
         .sys-row {
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
+            padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 0.92rem;
+            font-size: 0.9rem;
         }
 
         .sys-row:last-child { border-bottom: none; }
         .sys-row .label { color: var(--text-muted); }
         .sys-row .val { font-weight: 700; color: #fff; text-align: right; }
 
-        /* Hardware FPS Calculator Widget */
-        .hardware-scanner {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(168, 85, 247, 0.05));
-            border: 1px solid rgba(0, 212, 255, 0.2);
+        /* ADVANCED HARDWARE CALCULATOR */
+        .hardware-calculator-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.04), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(0, 212, 255, 0.25);
             border-radius: var(--radius-lg);
             padding: 40px;
-            text-align: center;
         }
 
-        .scanner-title {
+        .calc-header-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 1.4rem;
+            font-weight: 800;
             color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .scanner-desc {
+        .calc-header-desc {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             margin-bottom: 30px;
         }
 
-        .scanner-form {
+        .calc-form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        .select-group select {
+        .calc-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .calc-field-group label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--neon-blue);
+        }
+
+        .calc-field-group select {
             width: 100%;
-            background: rgba(10, 10, 18, 0.9);
+            background: #0a0a14;
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff;
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-radius: var(--radius-sm);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             outline: none;
             cursor: pointer;
             transition: var(--transition-fast);
         }
 
-        .select-group select:focus {
+        .calc-field-group select:focus {
             border-color: var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue-glow);
         }
 
-        .btn-calc {
+        .calc-field-group optgroup {
+            background: #0d0d1a;
+            color: var(--neon-purple);
+            font-weight: 700;
+        }
+
+        .btn-run-calc {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             color: #fff;
             border: none;
-            padding: 14px 35px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-size: 0.92rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
             transition: var(--transition-fast);
-        }
-
-        .btn-calc:hover {
-            transform: scale(1.03);
+            display: block;
+            margin: 0 auto;
             box-shadow: 0 0 25px var(--neon-blue-glow);
         }
 
-        .calc-result {
-            margin-top: 25px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
+        .btn-run-calc:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 40px var(--neon-purple-glow);
+        }
+
+        /* Results Output Box */
+        .calc-output-card {
+            margin-top: 30px;
+            background: rgba(5, 5, 12, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-md);
+            padding: 30px;
             display: none;
+        }
+
+        .output-header {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fps-display-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media(max-width: 600px) {
+            .fps-display-grid { grid-template-columns: 1fr; }
+        }
+
+        .fps-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .fps-box-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .fps-box-val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        .calc-note-box {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         /* ==========================================================================
-           9. INTERACTIVE PARK MAP & SECTORS (TEMKAWORLD)
+           9. SECTOR MAP & LORE (TEMKAWORLD)
            ========================================================================== */
         .map-section-grid {
             display: grid;
@@ -841,11 +901,11 @@
         }
 
         /* ==========================================================================
-           10. SEREGA'S SKIN SHOP PREVIEW
+           10. SEREGA'S SHOP
            ========================================================================== */
         .skins-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
         }
 
@@ -881,10 +941,7 @@
         .rarity-legendary { background: rgba(255, 106, 0, 0.2); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
         .rarity-epic { background: rgba(168, 85, 247, 0.2); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
 
-        .skin-avatar {
-            font-size: 4rem;
-            margin: 20px 0 15px;
-        }
+        .skin-avatar { font-size: 4rem; margin: 20px 0 15px; }
 
         .skin-name {
             font-family: 'Orbitron', sans-serif;
@@ -894,11 +951,7 @@
             color: #fff;
         }
 
-        .skin-price {
-            color: var(--neon-blue);
-            font-weight: 800;
-            font-size: 0.95rem;
-        }
+        .skin-price { color: var(--neon-blue); font-weight: 800; font-size: 0.95rem; }
 
         /* ==========================================================================
            11. ROADMAP & FAQ ACCORDION
@@ -914,7 +967,6 @@
             border: 1px solid var(--card-border);
             border-radius: var(--radius-lg);
             padding: 35px;
-            position: relative;
         }
 
         .node-tag {
@@ -939,16 +991,9 @@
             color: #fff;
         }
 
-        .node-desc {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            line-height: 1.6;
-        }
+        .node-desc { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; }
 
-        .faq-accordion {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .faq-accordion { max-width: 900px; margin: 0 auto; }
 
         .faq-item {
             background: var(--card-bg);
@@ -970,9 +1015,7 @@
             align-items: center;
         }
 
-        .faq-head:hover {
-            color: var(--neon-blue);
-        }
+        .faq-head:hover { color: var(--neon-blue); }
 
         .faq-body {
             padding: 0 30px 24px;
@@ -982,13 +1025,8 @@
             display: none;
         }
 
-        .faq-item.open .faq-body {
-            display: block;
-        }
-
-        .faq-item.open {
-            border-color: var(--neon-blue);
-        }
+        .faq-item.open .faq-body { display: block; }
+        .faq-item.open { border-color: var(--neon-blue); }
 
         /* ==========================================================================
            12. MODAL & FOOTER
@@ -1011,10 +1049,7 @@
             padding: 20px;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-window {
             background: var(--card-bg);
@@ -1076,11 +1111,11 @@
 </head>
 <body>
 
-    <!-- Background Canvas -->
+    <!-- Dynamic Canvas Particle Field -->
     <canvas id="bgCanvas"></canvas>
     <div class="cyber-grid"></div>
 
-    <!-- Top Announcement Ticker -->
+    <!-- Announcement Bar -->
     <div class="top-ticker">
         <div class="ticker-content">
             <div class="ticker-item"><span class="badge">ИНФО</span> Сервер Fantazia RP 3D работает на Render в режиме 24/7!</div>
@@ -1090,7 +1125,7 @@
         </div>
     </div>
 
-    <!-- Main Navigation Bar -->
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
@@ -1098,7 +1133,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#games">Проекты</a></li>
-                <li><a href="#hardware">Требования</a></li>
+                <li><a href="#hardware">Тест Железа</a></li>
                 <li><a href="#map">Карта Парка</a></li>
                 <li><a href="#shop">Лавка Серёги</a></li>
                 <li><a href="#roadmap">Планы</a></li>
@@ -1115,7 +1150,7 @@
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-badge">
-                <span class="status-dot"></span> Единая Игровая Платформа
+                <span class="status-dot"></span> Единый Игровой Портал
             </div>
             <h1 class="hero-title">
                 <span class="text-white">ОТКРОЙ ДВА МИРА</span>
@@ -1135,7 +1170,7 @@
         </div>
     </section>
 
-    <!-- Live Server Metrics Bar -->
+    <!-- Metrics Bar -->
     <div class="server-metrics-bar">
         <div class="metrics-grid">
             <div class="metric-card">
@@ -1178,21 +1213,21 @@
         </div>
 
         <div class="games-showcase-grid">
-            <!-- Temkaworld Card -->
+            <!-- Temkaworld -->
             <div class="game-big-card card-temka">
                 <div>
                     <div class="card-top">
                         <span class="card-icon">🎡</span>
-                        <span class="card-pill pill-blue">Хоррор · Коооп · Выживание</span>
+                        <span class="card-pill pill-blue">Хоррор · Кооператив · Выживание</span>
                     </div>
                     <h3 class="card-title">TEMKAWORLD</h3>
                     <p class="card-text">
                         Заброшенный технологичный парк аттракционов через 2 года после нападения Демона. Проникни внутрь, защищайся от монстров вместе с Сашей и Никитой, торгуй у Серёги и качайся до 10 уровня для входа в Бункер!
                     </p>
                     <ul class="card-bullet-list">
-                        <li><span>✔</span> Жесткий фильтр ников (защита от мата)</li>
+                        <li><span>✔</span> Фильтр мата и имен при создании героя</li>
                         <li><span>✔</span> Опасные стыки парка и Гигантский Монстр</li>
-                        <li><span>✔</span> Запертый Секретный Бункер (Требуется Lvl 10)</li>
+                        <li><span>✔</span> Запертый Секретный Бункер (Требуется 10 Lvl)</li>
                     </ul>
                 </div>
                 <div class="card-actions">
@@ -1202,7 +1237,7 @@
                 </div>
             </div>
 
-            <!-- Fantazia RP Card -->
+            <!-- Fantazia RP -->
             <div class="game-big-card card-fantazia">
                 <div>
                     <div class="card-top">
@@ -1216,7 +1251,7 @@
                     <ul class="card-bullet-list">
                         <li><span>✔</span> Запуск в 1 клик без скачивания</li>
                         <li><span>✔</span> Полная кастомизация персонажа</li>
-                        <li><span>✔</span> Огромный 3D-город и реальные игроки</li>
+                        <li><span>✔</span> Огромный 3D-город и живые игроки</li>
                     </ul>
                 </div>
                 <div class="card-actions">
@@ -1228,20 +1263,21 @@
         </div>
     </section>
 
-    <!-- System Requirements & Compatibility Checker -->
+    <!-- Advanced System Requirements & Hardware FPS Scanner -->
     <section id="hardware">
         <div class="section-header">
             <span class="section-tag">Железо & Оптимизация</span>
-            <h2 class="section-title">Системные Требования</h2>
-            <p class="section-subtitle">Проект оптимизирован для высокой производительности и плавного кадрового фреймрейта</p>
+            <h2 class="section-title">Системные Требования & Сканер FPS</h2>
+            <p class="section-subtitle">Официальные характеристики и встроенный калькулятор совместимости твоего ПК</p>
         </div>
 
         <div class="sys-req-wrapper">
+            <!-- Official Specs Table -->
             <div class="sys-tables-grid">
                 <!-- Minimum Specs -->
                 <div class="sys-box">
                     <div class="sys-box-header header-min">
-                        <span>⚙</span> Минимальные Настройки
+                        <span>⚙</span> Минимальные Требования
                     </div>
                     <ul class="sys-rows">
                         <li class="sys-row">
@@ -1250,7 +1286,7 @@
                         </li>
                         <li class="sys-row">
                             <span class="label">Процессор (CPU):</span>
-                            <span class="val">Intel Xeon E5 v3</span>
+                            <span class="val">Intel Xeon E5 v3 series</span>
                         </li>
                         <li class="sys-row">
                             <span class="label">Оперативная память:</span>
@@ -1270,7 +1306,7 @@
                 <!-- Recommended Specs -->
                 <div class="sys-box">
                     <div class="sys-box-header header-rec">
-                        <span>🔥</span> Рекомендуемые Настройки
+                        <span>🔥</span> Рекомендуемые Требования
                     </div>
                     <ul class="sys-rows">
                         <li class="sys-row">
@@ -1297,43 +1333,116 @@
                 </div>
             </div>
 
-            <!-- Hardware Checker Widget -->
-            <div class="hardware-scanner">
-                <h3 class="scanner-title">🔍 Сканер Совместимости Твоего ПК</h3>
-                <p class="scanner-desc">Выбери комплектующие своего компьютера и узнай предполагаемый FPS</p>
-                
-                <div class="scanner-form">
-                    <div class="select-group">
-                        <select id="userGpu">
-                            <option value="1">Видеокарта: Ниже GTX 1660</option>
-                            <option value="2" selected>Видеокарта: GTX 1660 Super</option>
-                            <option value="3">Видеокарта: RTX 3060 Ti или лучше</option>
+            <!-- Advanced Calculator Widget -->
+            <div class="hardware-calculator-box">
+                <h3 class="calc-header-title">💻 Полный Калькулятор FPS Вашего Компьютера</h3>
+                <p class="calc-header-desc">Выберите точные комплектующие из списков от GTX 660 до RTX 5090 и узнайте производительность</p>
+
+                <div class="calc-form-grid">
+                    <!-- GPU SELECT -->
+                    <div class="calc-field-group">
+                        <label for="selectGpu">Видеокарта (GPU)</label>
+                        <select id="selectGpu">
+                            <optgroup label="Бюджетный сегмент">
+                                <option value="15">NVIDIA GeForce GTX 660</option>
+                                <option value="18">NVIDIA GeForce GTX 750 Ti</option>
+                                <option value="25">NVIDIA GeForce GTX 960 / 1050 Ti</option>
+                                <option value="35">NVIDIA GeForce GTX 1060 6GB / GTX 1650</option>
+                            </optgroup>
+                            <optgroup label="Средний сегмент (Минимум)">
+                                <option value="50" selected>NVIDIA GeForce GTX 1660 Super (Мин. Стандарт)</option>
+                                <option value="55">NVIDIA GeForce GTX 1660 Ti / GTX 1070</option>
+                                <option value="62">NVIDIA GeForce RTX 2060 / RTX 3050</option>
+                                <option value="72">NVIDIA GeForce RTX 2070 / RTX 3060 12GB</option>
+                            </optgroup>
+                            <optgroup label="Высокий сегмент (Рекомендуемое)">
+                                <option value="88">NVIDIA GeForce RTX 3060 Ti (Реком. Стандарт)</option>
+                                <option value="98">NVIDIA GeForce RTX 3070 / RTX 4060 Ti</option>
+                                <option value="115">NVIDIA GeForce RTX 3080 / RTX 4070</option>
+                            </optgroup>
+                            <optgroup label="Флагманы & Новинки">
+                                <option value="145">NVIDIA GeForce RTX 4080 Super</option>
+                                <option value="180">NVIDIA GeForce RTX 4090</option>
+                                <option value="210">NVIDIA GeForce RTX 5080</option>
+                                <option value="260">NVIDIA GeForce RTX 5090 (Максимум)</option>
+                            </optgroup>
+                            <optgroup label="AMD Radeon">
+                                <option value="30">AMD Radeon RX 580 8GB</option>
+                                <option value="60">AMD Radeon RX 5700 XT / RX 6600</option>
+                                <option value="85">AMD Radeon RX 6700 XT / RX 7700 XT</option>
+                                <option value="120">AMD Radeon RX 7800 XT / RX 7900 XTX</option>
+                            </optgroup>
                         </select>
                     </div>
-                    <div class="select-group">
-                        <select id="userCpu">
-                            <option value="1">Процессор: Старый Core i3/i5</option>
-                            <option value="2" selected>Процессор: Intel Xeon E5 v3</option>
-                            <option value="3">Процессор: AMD Ryzen 5 5600X</option>
+
+                    <!-- CPU SELECT -->
+                    <div class="calc-field-group">
+                        <label for="selectCpu">Процессор (CPU)</label>
+                        <select id="selectCpu">
+                            <optgroup label="Старые CPU / Офисные">
+                                <option value="15">Intel Core i3-2100 / i5-3470</option>
+                                <option value="25">Intel Core i7-3770 / i7-4770</option>
+                            </optgroup>
+                            <optgroup label="Серверные & Бюджетные">
+                                <option value="45" selected>Intel Xeon E5 v3 Series (Мин. Стандарт)</option>
+                                <option value="50">Intel Core i3-10100F / i5-9400F</option>
+                                <option value="60">AMD Ryzen 5 2600 / Ryzen 5 3600</option>
+                            </optgroup>
+                            <optgroup label="Игровой стандарт">
+                                <option value="80">AMD Ryzen 5 5600X (Реком. Стандарт)</option>
+                                <option value="85">Intel Core i5-12400F / i5-13400F</option>
+                                <option value="100">AMD Ryzen 7 5700X3D / Ryzen 5 7600X</option>
+                            </optgroup>
+                            <optgroup label="Топ Игровые процессоры">
+                                <option value="125">Intel Core i7-13700K / i7-14700K</option>
+                                <option value="145">AMD Ryzen 7 7800X3D (Топ Игровой)</option>
+                                <option value="150">Intel Core i9-14900K / Ryzen 9 7950X3D</option>
+                            </optgroup>
                         </select>
                     </div>
-                    <div class="select-group">
-                        <select id="userRam">
-                            <option value="1">Память: 4-6 GB</option>
-                            <option value="2" selected>Память: 8 GB</option>
-                            <option value="3">Память: 16 GB+</option>
+
+                    <!-- RAM SELECT -->
+                    <div class="calc-field-group">
+                        <label for="selectRam">Оперативная Память (RAM)</label>
+                        <select id="selectRam">
+                            <option value="0.6">4 GB DDR3/DDR4 (Слишком мало)</option>
+                            <option value="1.0" selected>8 GB DDR4 (Минимальный порог)</option>
+                            <option value="1.25">16 GB DDR4 / DDR5 (Идеально)</option>
+                            <option value="1.35">32 GB DDR4 / DDR5 (Запас прочности)</option>
+                            <option value="1.40">64 GB DDR5 (Максимальная скорость)</option>
                         </select>
                     </div>
                 </div>
 
-                <button class="btn-calc" onclick="calculateFPS()">Проверить FPS</button>
+                <button class="btn-run-calc" onclick="runAdvancedCalculation()">Рассчитать Совместимость & FPS</button>
 
-                <div class="calc-result" id="calcResult"></div>
+                <!-- Calculation Output Box -->
+                <div class="calc-output-card" id="calcOutput">
+                    <div class="output-header">
+                        <span>РЕЗУЛЬТАТЫ ТЕСТИРОВАНИЯ СИСТЕМЫ</span>
+                        <span id="presetBadge" style="color: var(--neon-green); font-size: 0.85rem;">ОПТИМАЛЬНО</span>
+                    </div>
+
+                    <div class="fps-display-grid">
+                        <div class="fps-box">
+                            <div class="fps-box-title">Fantazia RP 3D (WebGL)</div>
+                            <div class="fps-box-val" id="fpsFantazia" style="color: var(--neon-purple);">60 FPS</div>
+                        </div>
+                        <div class="fps-box">
+                            <div class="fps-box-title">Temkaworld 3D (1080p)</div>
+                            <div class="fps-box-val" id="fpsTemka" style="color: var(--neon-blue);">60 FPS</div>
+                        </div>
+                    </div>
+
+                    <div class="calc-note-box" id="calcAnalysisNote">
+                        Ваша система отлично сбалансирована.
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Park Interactive Map (Temkaworld) -->
+    <!-- Park Map Section (Temkaworld) -->
     <section id="map">
         <div class="section-header">
             <span class="section-tag">Исследование</span>
@@ -1386,7 +1495,7 @@
         </div>
     </section>
 
-    <!-- Skin Shop Preview (Лавка Серёги) -->
+    <!-- Serega's Shop -->
     <section id="shop">
         <div class="section-header">
             <span class="section-tag">Кастомизация</span>
@@ -1422,7 +1531,7 @@
         </div>
     </section>
 
-    <!-- Roadmap Section -->
+    <!-- Roadmap -->
     <section id="roadmap">
         <div class="section-header">
             <span class="section-tag">Планы Разработки</span>
@@ -1453,7 +1562,7 @@
         </div>
     </section>
 
-    <!-- FAQ Accordion Section -->
+    <!-- FAQ Accordion -->
     <section id="faq">
         <div class="section-header">
             <span class="section-tag">Вопросы и Ответы</span>
@@ -1488,7 +1597,7 @@
         </div>
     </section>
 
-    <!-- Download Launcher Modal ("Скоро") -->
+    <!-- Download Modal ("Скоро") -->
     <div class="modal-overlay" id="launcherModal">
         <div class="modal-window">
             <button class="modal-close-btn" onclick="closeLauncherModal()">✕</button>
@@ -1516,7 +1625,7 @@
         </p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic Engine -->
     <script>
         // Navbar Scroll Styling
         window.addEventListener('scroll', () => {
@@ -1528,7 +1637,7 @@
             }
         });
 
-        // Modal Logic
+        // Modal Controls
         function openLauncherModal() {
             document.getElementById('launcherModal').classList.add('active');
         }
@@ -1544,31 +1653,71 @@
             btn.classList.add('active');
         }
 
-        // Hardware Calculator Logic
-        function calculateFPS() {
-            const gpu = parseInt(document.getElementById('userGpu').value);
-            const cpu = parseInt(document.getElementById('userCpu').value);
-            const ram = parseInt(document.getElementById('userRam').value);
-            const score = gpu + cpu + ram;
-            const res = document.getElementById('calcResult');
-
-            res.style.display = 'block';
-            if (score <= 4) {
-                res.innerHTML = "Результат: <span style='color: var(--neon-orange);'>30-45 FPS (Низкие настройки)</span>";
-            } else if (score <= 7) {
-                res.innerHTML = "Результат: <span style='color: var(--neon-blue);'>60-80 FPS (Средне-Высокие настройки)</span>";
-            } else {
-                res.innerHTML = "Результат: <span style='color: var(--neon-green);'>100+ FPS (Ультра настройки)</span>";
-            }
-        }
-
         // FAQ Accordion Toggle
         function toggleFaq(head) {
             const item = head.parentElement;
             item.classList.toggle('open');
         }
 
-        // Background Particles Canvas Animation
+        // ADVANCED HARDWARE CALCULATOR ENGINE
+        function runAdvancedCalculation() {
+            const gpuVal = parseFloat(document.getElementById('selectGpu').value);
+            const cpuVal = parseFloat(document.getElementById('selectCpu').value);
+            const ramMultiplier = parseFloat(document.getElementById('selectRam').value);
+
+            const outputCard = document.getElementById('calcOutput');
+            const fpsFantaziaEl = document.getElementById('fpsFantazia');
+            const fpsTemkaEl = document.getElementById('fpsTemka');
+            const presetBadge = document.getElementById('presetBadge');
+            const noteEl = document.getElementById('calcAnalysisNote');
+
+            outputCard.style.display = 'block';
+
+            // Calculate Base Performance Index
+            let combinedScore = (gpuVal * 0.65 + cpuVal * 0.35) * ramMultiplier;
+
+            // Estimated FPS for WebGL Fantazia RP
+            let fantaziaFps = Math.round((gpuVal * 0.5 + cpuVal * 0.5) * ramMultiplier * 1.1);
+            if (fantaziaFps > 240) fantaziaFps = 240;
+            if (fantaziaFps < 15) fantaziaFps = 15;
+
+            // Estimated FPS for Temkaworld 3D
+            let temkaFps = Math.round(combinedScore * 0.85);
+            if (temkaFps > 240) temkaFps = 240;
+            if (temkaFps < 12) temkaFps = 12;
+
+            fpsFantaziaEl.innerText = fantaziaFps + " FPS";
+            fpsTemkaEl.innerText = temkaFps + " FPS";
+
+            // Check Bottlenecks & Set Presets
+            if (ramMultiplier < 0.8) {
+                presetBadge.innerText = "УЗКОЕ МЕСТО: МАЛО ОЗУ";
+                presetBadge.style.color = "var(--neon-red)";
+                noteEl.innerHTML = "⚠️ <strong>Предупреждение:</strong> У вас установлено 4 ГБ оперативной памяти. Возможны фризы и фреймдропы. Рекомендуем обновить ОЗУ минимум до 8-16 ГБ.";
+            } else if (gpuVal >= 180 && cpuVal <= 35) {
+                presetBadge.innerText = "УЗКОЕ МЕСТО: СЛАБЫЙ CPU";
+                presetBadge.style.color = "var(--neon-orange)";
+                noteEl.innerHTML = "⚠️ <strong>Боттлнек:</strong> Ваша мощная видеокарта ограничивается слабым процессором. Обновите CPU для раскрытия потенциала.";
+            } else if (temkaFps >= 100) {
+                presetBadge.innerText = "КИБЕРСПОРТ / УЛЬТРА (1080p / 1440p)";
+                presetBadge.style.color = "var(--neon-green)";
+                noteEl.innerHTML = "🔥 <strong>Отличный результат!</strong> Ваша система выдает высочайшую плавность. Вы сможете играть на Ультра-настройках графики с высоким FPS.";
+            } else if (temkaFps >= 60) {
+                presetBadge.innerText = "ВЫСОКИЕ НАСТРОЙКИ (1080p)";
+                presetBadge.style.color = "var(--neon-blue)";
+                noteEl.innerHTML = "✅ <strong>Стабильный стандарт:</strong> Система полностью соответствует или превосходит рекомендуемые требования. Ожидается плавный геймплей на Высоких настройках.";
+            } else if (temkaFps >= 35) {
+                presetBadge.innerText = "СРЕДНЕ-НИЗКИЕ НАСТРОЙКИ";
+                presetBadge.style.color = "var(--neon-orange)";
+                noteEl.innerHTML = "⚙️ <strong>Минимальная совместимость:</strong> Ваша система позволит комфортно играть на Средних или Низких настройках графики при 30-50 FPS.";
+            } else {
+                presetBadge.innerText = "НИЗКИЙ FPS";
+                presetBadge.style.color = "var(--neon-red)";
+                noteEl.innerHTML = "🛑 <strong>Слабое железо:</strong> Производительность ниже минимального стандарта. Рекомендуется обновить видеокарту или процессор.";
+            }
+        }
+
+        // Particle Canvas Engine
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -1619,7 +1768,7 @@
         }
         animateParticles();
 
-        // Web Audio Synthesizer Ambient Toggle
+        // Web Audio Synthesizer Ambient Sound Toggle
         let audioCtx = null;
         let isPlaying = false;
 
@@ -1631,7 +1780,7 @@
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(110, audioCtx.currentTime); // Low A note
+                    osc.frequency.setValueAtTime(110, audioCtx.currentTime);
                     gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
