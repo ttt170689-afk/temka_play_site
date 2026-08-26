@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>temka_play_official — Temkaworld & Fantazia RP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-blue: #00d4ff;
+            --neon-purple: #a855f7;
+            --neon-pink: #ff2d95;
+            --neon-green: #39ff14;
+            --neon-orange: #ff6a00;
+            --neon-red: #ff0040;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(15, 15, 25, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --text-primary: #e8e8f0;
+            --text-secondary: #8888aa;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 80%, rgba(255, 45, 149, 0.06) 0%, transparent 50%),
+                        var(--dark-bg);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: float-particle linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ===== GRID OVERLAY ===== */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(0px);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-download-btn {
+            background: linear-gradient(135deg, #444, #222);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa !important;
+            padding: 10px 25px !important;
+            border-radius: 30px;
+            font-weight: 700 !important;
+            box-shadow: none;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-download-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #555, #333);
+            color: #fff !important;
+        }
+
+        .nav-download-btn::after {
+            display: none !important;
+        }
+
+        /* Mobile menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 40px;
+        }
+
+        .hero-bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .hero-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            animation: pulse-ring 4s ease-in-out infinite;
+        }
+
+        .hero-circle:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-circle:nth-child(2) {
+            width: 800px;
+            height: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 1s;
+            border-color: rgba(168, 85, 247, 0.08);
+        }
+
+        .hero-circle:nth-child(3) {
+            width: 1000px;
+            height: 1000px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 2s;
+            border-color: rgba(255, 45, 149, 0.06);
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--neon-purple);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-orange);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--neon-orange);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-title .line1 {
+            display: block;
+            background: linear-gradient(135deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title .line2 {
+            display: block;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 25px auto 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3), inset 0 0 30px rgba(255, 255, 255, 0.05);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--text-primary);
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 212, 255, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.15);
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--neon-blue), transparent);
+            animation: scroll-anim 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-anim {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        .scroll-text {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTION STYLES ===== */
+        section {
+            padding: 120px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            margin: 20px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* ===== GAMES SECTION ===== */
+        .games-section {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Game Card - Large Featured */
+        .game-featured {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 80px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+
+        .game-featured:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .game-featured-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .game-featured-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(168, 85, 247, 0.05));
+            overflow: hidden;
+        }
+
+        .game-icon-large {
+            font-size: 12rem;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .game-visual-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent 70%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .game-featured-content {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .game-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .tag-blue {
+            color: var(--neon-blue);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .tag-purple {
+            color: var(--neon-purple);
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .game-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .game-name.blue-gradient {
+            background: linear-gradient(135deg, var(--neon-blue), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-name.purple-gradient {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .game-description {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .game-features-list {
+            list-style: none;
+            margin-bottom: 35px;
+        }
+
+        .game-features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .game-features-list li .icon {
+            font-size: 1.2rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        .game-btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-game {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, var(--neon-blue), #0088cc);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            color: #fff;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--neon-blue);
+            background: rgba(0, 212, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+        }
+
+        .btn-soon {
+            background: #222 !important;
+            color: #666 !important;
+            border: 1px solid #333 !important;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        .btn-soon:hover {
+            transform: none !important;
+        }
+
+        /* ===== LORE / STORY SECTION ===== */
+        .lore-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-orange));
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -48px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue), 0 0 40px rgba(0, 212, 255, 0.3);
+            z-index: 2;
+        }
+
+        .timeline-dot.purple { background: var(--neon-purple); box-shadow: 0 0 20px var(--neon-purple); }
+        .timeline-dot.pink { background: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); }
+        .timeline-dot.green { background: var(--neon-green); box-shadow: 0 0 20px var(--neon-green); }
+        .timeline-dot.orange { background: var(--neon-orange); box-shadow: 0 0 20px var(--neon-orange); }
+
+        .timeline-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 35px 40px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card:hover {
+            border-color: rgba(0, 212, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-chapter {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--neon-blue);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .timeline-text strong {
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        .timeline-emoji {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 45px 35px;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 212, 255, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .feature-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ===== DOWNLOAD SECTION ===== */
+        .download-section {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .download-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 45, 149, 0.04), rgba(168, 85, 247, 0.04));
+            border: 1px solid rgba(255, 45, 149, 0.15);
+            border-radius: 30px;
+            padding: 80px 60px;
+            text-align: center;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 45, 149, 0.03), transparent, rgba(168, 85, 247, 0.03), transparent);
+            animation: rotate-bg 10s linear infinite;
+        }
+
+        @keyframes rotate-bg {
+            to { transform: rotate(360deg); }
+        }
+
+        .download-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .download-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .download-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn-download-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #222;
+            border: 1px solid #333;
+            color: #666;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-download-main:hover {
+            background: #2a2a2a;
+            color: #888;
+            border-color: #444;
+        }
+
+        .system-reqs {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .req-item .icon {
+            font-size: 1.2rem;
+        }
+
+        /* ===== FANTAZIA RP SECTION ===== */
+        .fantazia-visual {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(255, 45, 149, 0.05));
+        }
+
+        .fantazia-icon {
+            font-size: 12rem;
+            filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.3));
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 60px 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 60px 40px;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-about {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copy {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            transform: translateY(-3px);
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 45, 149, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            color: var(--neon-pink);
+            background: rgba(255, 45, 149, 0.1);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-status-badge {
+            display: inline-block;
+            background: rgba(255, 106, 0, 0.1);
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        /* ===== COOKIE BANNER ===== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            max-width: 600px;
+            width: calc(100% - 40px);
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1500;
+            backdrop-filter: blur(20px);
+            transition: transform 0.5s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .cookie-banner.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cookie-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .cookie-btn {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .game-featured-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .game-featured-visual {
+                min-height: 300px;
+            }
+
+            .game-featured-content {
+                padding: 40px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 25px;
+                padding: 40px;
+                transition: right 0.4s ease;
+                border-left: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 20px;
+            }
+
+            .game-featured-content {
+                padding: 30px 25px;
+            }
+
+            .game-icon-large, .fantazia-icon {
+                font-size: 8rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 45px;
+            }
+
+            .timeline::before {
+                left: 12px;
+            }
+
+            .timeline-dot {
+                left: -40px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .timeline-card {
+                padding: 25px;
+            }
+
+            .download-card {
+                padding: 50px 30px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 40px 20px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .game-btn-group {
+                flex-direction: column;
+            }
+
+            .game-btn-group .btn-game {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .system-reqs {
+                gap: 20px;
+            }
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-bar-container {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+            animation: loading-progress 1.5s ease-in-out forwards;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        @keyframes loading-progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* ===== GLOW EFFECTS ===== */
+        .glow-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">TEMKA PLAY</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <!-- Background -->
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">TEMKA_PLAY</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#games">Игры</a></li>
+                <li><a href="#lore">Сюжет</a></li>
+                <li><a href="#features">Фишки</a></li>
+                <li><a href="#download" class="nav-download-btn" onclick="openDownloadModal(); return false;">⬇ Лаунчер (Скоро)</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-shapes">
+            <div class="hero-circle"></div>
+            <div class="hero-circle"></div>
+            <div class="hero-circle"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Лаунчер в разработке
+            </div>
+            <h1 class="hero-title">
+                <span class="line1">TEMKA</span>
+                <span class="line2">PLAY OFFICIAL</span>
+            </h1>
+            <p class="hero-subtitle">
+                Два уникальных мира. Мрачный парк аттракционов с демонами и монстрами. 
+                И живой город фантазий с полной свободой действий прямо в твоем браузере!
+            </p>
+            <div class="hero-buttons">
+                <a href="https://fantazia-rp-3d1.onrender.com" target="_blank" class="btn-primary">
+                    🎮 Играть в Fantazia RP
+                </a>
+                <a href="#games" class="btn-secondary">
+                    🎡 Обзор проектов
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-line"></div>
+            <span class="scroll-text">Scroll</span>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" data-target="2">0</div>
+            <div class="stat-label">Игры</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="50">0</div>
+            <div class="stat-label">Квестов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="100">0</div>
+            <div class="stat-label">Скинов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="999">0</div>
+            <div class="stat-label">Приключений</div>
+        </div>
+    </div>
+
+    <!-- Games Section -->
+    <section id="games">
+        <div class="section-header">
+            <span class="section-label">Наши проекты</span>
+            <h2 class="section-title">Два мира — одна вселенная</h2>
+            <p class="section-desc">Каждая игра — это уникальный опыт с неповторимой атмосферой, сюжетом и геймплеем</p>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="games-section">
+            <!-- TEMKAWORLD -->
+            <div class="game-featured">
+                <div class="game-featured-inner">
+                    <div class="game-featured-visual">
+                        <div class="game-visual-bg"></div>
+                        <div class="game-icon-large">🎡</div>
+                    </div>
+                    <div class="game-featured-content">
+                        <div class="game-tag tag-blue">🔥 Хоррор · Выживание · Мультиплеер</div>
+                        <h3 class="game-name blue-gradient">TEMKAWORLD</h3>
+                        <p class="game-description">
+                            Заброшенный технологичный парк аттракционов, захваченный демонами и монстрами. 
+                            Когда-то это было место радости, но роковой день навсегда изменил всё. 
+                            Проникни внутрь, выживи и раскрой тайну Золотого Ключа.
+                        </p>
+                        <ul class="game-features-list">
+                            <li><span class="icon">👹</span> Жуткие монстры и гигантские боссы</li>
+                            <li><span class="icon">🌐</span> Полноценный мультиплеер с друзьями</li>
+                            <li><span class="icon">🗝</span> Квесты, уровни и секретный бункер</li>
+                            <li><span class="icon">👕</span> Магазин скинов у Серёги</li>
+                            <li><span class="icon">📖</span> Глубокий сюжет с неожиданными поворотами</li>
+                        </ul>
+                        <div class="game-btn-group">
+                            <button onclick="openDownloadModal()" class="btn-game btn-blue btn-soon">⬇ Скачать (Скоро)</button>
+                            <a href="#lore" class="btn-game btn-outline">📖 Читать лор</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FANTAZIA RP -->
+            <div class="game-featured">
+                <div class="game-featured-inner">
+                    <div class="game-featured-content">
+                        <div class="game-tag tag-purple">✨ RP · Открытый мир · 3D</div>
+                        <h3 class="game-name purple-gradient">FANTAZIA RP</h3>
+                        <p class="game-description">
+                            Масштабная 3D ролевая игра с полностью открытым миром, доступная прямо в твоем браузере. 
+                            Создай своего персонажа, устройся на работу, купи дом, 
+                            заведи бизнес или стань легендой криминального мира. 
+                            Каждый игрок — творец своей истории.
+                        </p>
+                        <ul class="game-features-list">
+                            <li><span class="icon">🏙</span> Огромный открытый 3D-мир в WebGL</li>
+                            <li><span class="icon">👤</span> Полная кастомизация персонажа</li>
+                            <li><span class="icon">💼</span> Работы, бизнесы, криминал</li>
+                            <li><span class="icon">🏠</span> Покупка домов и транспорта</li>
+                            <li><span class="icon">🤝</span> Живое сообщество игроков онлайн</li>
+                        </ul>
+                        <div class="game-btn-group">
+                            <a href="https://fantazia-rp-3d1.onrender.com" target="_blank" class="btn-game btn-purple">🎮 Играть на сервере</a>
+                            <button onclick="openDownloadModal()" class="btn-game btn-outline btn-soon">⬇ Лаунчер (Скоро)</button>
+                        </div>
+                    </div>
+                    <div class="game-featured-visual fantazia-visual">
+                        <div class="game-visual-bg" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);"></div>
+                        <div class="fantazia-icon">🏙</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lore Section -->
+    <section id="lore">
+        <div class="section-header">
+            <span class="section-label">Сюжет Temkaworld</span>
+            <h2 class="section-title">История, которую ты проживёшь</h2>
+            <p class="section-desc">Каждая глава — новый виток судьбы. От детских воспоминаний до битвы с тьмой</p>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="lore-section">
+            <div class="timeline">
+                <!-- Chapter 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-emoji">👶</span>
+                        <span class="timeline-chapter">Пролог</span>
+                        <h3 class="timeline-title">Детство и Катастрофа</h3>
+                        <p class="timeline-text">
+                            Всё начинается с воспоминаний о детстве. Ты выбираешь себе имя 
+                            и попадаешь в мир, где открывается грандиозный технологичный парк аттракционов — 
+                            <strong>Temkaworld</strong>. Все счастливы… но в один роковой день срабатывает 
+                            сирена безопасности: на парк нападает жуткий <strong>Демон</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot purple"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-emoji">⚔️</span>
+                        <span class="timeline-chapter">Жертва лидера</span>
+                        <h3 class="timeline-title">Артём закрывает двери</h3>
+                        <p class="timeline-text">
+                            Главный организатор <strong>Артём</strong> выводит людей. Его помощники — 
+                            <strong>Серёга, Саша и Никита</strong> — принимают бой. Артём силой выталкивает 
+                            тебя на лестницу, даёт записку и закрывает гермозатвор, навсегда изолируя 
+                            Temkaworld от внешнего мира.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot pink"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-emoji">🏚</span>
+                        <span class="timeline-chapter">2 года спустя</span>
+                        <h3 class="timeline-title">Возвращение и Обучение</h3>
+                        <p class="timeline-text">
+                            Проходит два года. По записке Артёма ты находишь скрытый проход на заброшке 
+                            и проникаешь внутрь заколоченного парка. Тебя встречает <strong>Никита</strong>, 
+                            который обучает управлению и выживанию, после чего уходит к <strong>Саше</strong> — 
+                            вместе они в тяжёлой броне охраняют опасные стыки парка от монстров.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot green"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-emoji">🎮</span>
+                        <span class="timeline-chapter">Сетевая игра</span>
+                        <h3 class="timeline-title">Первая миссия</h3>
+                        <p class="timeline-text">
+                            Ты делаешь шаг в огромный портал и подключаешься к мультиплеер-серверу. 
+                            На сервере ты бежишь к <strong>Серёге</strong> — он продаёт крутые скины и одежду. 
+                            Затем <strong>Артём</strong> (он жив!) даёт первую миссию — скрытно изучить 
+                            опасную зону за блокпостом Саши и Никиты.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chapter 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot orange"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-emoji">🗝</span>
+                        <span class="timeline-chapter">Финал вступления</span>
+                        <h3 class="timeline-title">Золотой Ключ и Секретный Бункер</h3>
+                        <p class="timeline-text">
+                            Ты тихо обходишь монстров, но забрав со стены <strong>Золотой Ключ</strong>, 
+                            стена рушится — появляется <strong>Гигантский Монстр</strong>! Бешеная 
+                            адреналиновая погоня обратно к базе. Вырвавшись, ты отдаёшь ключ Артёму. 
+                            Он открывает Хранилище и показывает <strong>Секретный Бункер</strong>. 
+                            Но войти можно только с <strong>10 уровнем</strong>. Теперь тебе предстоит 
+                            жить в Temkaworld, качаться и открыть тайное убежище.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="section-header">
+            <span class="section-label">Возможности</span>
+            <h2 class="section-title">Почему стоит играть</h2>
+            <p class="section-desc">Каждая деталь создана для максимального погружения</p>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🎭</span>
+                <h4 class="feature-title">Глубокий сюжет</h4>
+                <p class="feature-text">Многослойная история с неожиданными поворотами, живыми персонажами и множеством секретов, которые предстоит раскрыть</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👹</span>
+                <h4 class="feature-title">Жуткие монстры</h4>
+                <p class="feature-text">Уникальные существа с непредсказуемым поведением. Каждый враг — настоящее испытание, требующее стратегии и скорости</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌐</span>
+                <h4 class="feature-title">Мультиплеер</h4>
+                <p class="feature-text">Играй с друзьями на одном сервере. Выполняйте квесты вместе, торгуйте и помогайте друг другу выжить</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👕</span>
+                <h4 class="feature-title">Кастомизация</h4>
+                <p class="feature-text">Сотни скинов, костюмов и аксессуаров. Магазин Серёги обновляется регулярно — стиль решает!</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🏙</span>
+                <h4 class="feature-title">Открытый мир</h4>
+                <p class="feature-text">В Fantazia RP — полная свобода: работы, бизнесы, дома, машины. Живи так, как хочешь, в огромном 3D-городе</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h4 class="feature-title">Постоянные обновления</h4>
+                <p class="feature-text">Новый контент каждую неделю: квесты, ивенты, скины, зоны и сюжетные арки. Мир постоянно расширяется</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download">
+        <div class="download-section">
+            <div class="download-card">
+                <div class="download-content">
+                    <span class="download-icon">⚙️</span>
+                    <h2 class="download-title">Лаунчер TEMKA_PLAY</h2>
+                    <p class="download-desc">
+                        Единый лаунчер для всех наших проектов сейчас находится в разработке и готовится к бета-тестированию. Вы сможете качать обновления в один клик!
+                    </p>
+                    <div class="download-buttons">
+                        <button class="btn-download-main" onclick="openDownloadModal()">
+                            Скоро на Windows
+                        </button>
+                    </div>
+                    <div class="system-reqs">
+                        <div class="req-item">
+                            <span class="icon">💻</span>
+                            Windows 10+
+                        </div>
+                        <div class="req-item">
+                            <span class="icon">🧠</span>
+                            4 GB RAM
+                        </div>
+                        <div class="req-item">
+                            <span class="icon">💾</span>
+                            2 GB свободного места
+                        </div>
+                        <div class="req-item">
+                            <span class="icon">🎮</span>
+                            DirectX 11
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">TEMKA_PLAY</span>
+                <p class="footer-about">
+                    Два уникальных мира ждут тебя. Хоррор-выживание в Temkaworld 
+                    и свободная жизнь в Fantazia RP. Создано с любовью к играм.
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-heading">Игры</h4>
+                <ul class="footer-links">
+                    <li><a href="#games">Temkaworld</a></li>
+                    <li><a href="https://fantazia-rp-3d1.onrender.com" target="_blank">Fantazia RP (Играть)</a></li>
+                    <li><a href="#download" onclick="openDownloadModal(); return false;">Скачать лаунчер (Скоро)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Информация</h4>
+                <ul class="footer-links">
+                    <li><a href="#lore">Сюжет</a></li>
+                    <li><a href="#features">Возможности</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Сообщество</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">VK</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2025 temka_play_official. Все права защищены.</p>
+            <div class="footer-socials">
+                <a href="#" title="Discord">💬</a>
+                <a href="#" title="Telegram">✈️</a>
+                <a href="#" title="YouTube">▶️</a>
+                <a href="#" title="VK">🔵</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <!-- Download Modal (Coming Soon version) -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeDownloadModal()">✕</button>
+            <span class="modal-icon">🛠️</span>
+            <h3 class="modal-title">Лаунчер в разработке</h3>
+            <p class="modal-text">Мы усердно работаем над созданием единой игровой платформы <strong>TEMKA_PLAY</strong>. Программа станет доступна для скачивания совсем скоро!</p>
+            <p class="modal-text" style="color: var(--neon-blue); font-size: 0.95rem;">А пока вы можете прямо сейчас начать играть в <strong>Fantazia RP</strong> в своем браузере!</p>
+            <a href="https://fantazia-rp-3d1.onrender.com" target="_blank" class="btn-game btn-purple" style="display: inline-flex; margin-top: 10px;">🚀 Играть в Fantazia RP</a>
+            <div>
+                <span class="modal-status-badge">СТАТУС: Разработка 85%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p class="cookie-text">🍪 Мы используем файлы cookie для улучшения работы сайта. Продолжая, ты соглашаешься с этим.</p>
+        <button class="cookie-btn" onclick="acceptCookies()">Принять</button>
+    </div>
+
+    <script>
+        // ===== Loading Screen =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1800);
+
+            // Show cookie banner
+            setTimeout(() => {
+                if (!localStorage.getItem('cookiesAccepted')) {
+                    document.getElementById('cookieBanner').classList.add('visible');
+                }
+            }, 3000);
+        });
+
+        // ===== Particles =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#00d4ff', '#a855f7', '#ff2d95', '#39ff14'];
+            
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px ${particle.style.background}`;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== Navbar Scroll =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Scroll to top button
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // ===== Mobile Menu =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when link clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ===== Timeline Animation =====
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // ===== Counter Animation =====
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            counterObserver.observe(stat);
+        });
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 60;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                    if (target === 999) {
+                        element.textContent = '∞';
+                    } else {
+                        element.textContent = target + '+';
+                    }
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 25);
+        }
+
+        // ===== Download Modal =====
+        function openDownloadModal() {
+            const modal = document.getElementById('downloadModal');
+            modal.classList.add('active');
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('active');
+        }
+
+        document.getElementById('downloadModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('downloadModal')) {
+                closeDownloadModal();
+            }
+        });
+
+        // ===== Cookies =====
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieBanner').classList.remove('visible');
+        }
+
+        // ===== Smooth reveal for feature cards =====
+        const featureObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    featureObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            featureObserver.observe(card);
+        });
+
+        // ===== Game cards reveal =====
+        const gameObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    gameObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.game-featured').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px)';
+            card.style.transition = 'all 0.8s ease';
+            gameObserver.observe(card);
+        });
+
+        // ===== Keyboard ESC to close modal =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDownloadModal();
+            }
+        });
+
+        // ===== Parallax effect on hero =====
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.8;
+            }
+        });
+
+        // ===== Console Easter Egg =====
+        console.log('%c🎮 TEMKA_PLAY_OFFICIAL', 'color: #00d4ff; font-size: 24px; font-weight: bold; font-family: monospace;');
+        console.log('%cДобро пожаловать в мир Temkaworld и Fantazia RP!', 'color: #a855f7; font-size: 14px;');
+    </script>
+</body>
+</html>
