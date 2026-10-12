@@ -1,6 +1,6 @@
 # Как выложить сайт Temka Studio на Vercel
 
-Подготовленный архив: **Temka-Studio-Vercel-1.5.6.zip**. Это статический HTML/CSS/JS-сайт, поэтому npm/Node и сборка для него не нужны. Vercel рекомендует для таких сайтов `Other`, пустой Build Command и корневую Output Directory `.`. [1](https://vercel.com/docs/builds/configure-a-build)
+Подготовленный архив: **Temka-Studio-Simple.zip**. Это статический HTML/CSS/JS-сайт, поэтому npm/Node и сборка для него не нужны. Vercel рекомендует для таких сайтов `Other`, пустой Build Command и корневую Output Directory `.`. [1](https://vercel.com/docs/builds/configure-a-build)
 
 ## 1. Сначала распакуй сайт
 
@@ -11,10 +11,7 @@ index.html
 styles.css
 app.js
 site-config.js
-hardware.css
-hardware-data.js
-hardware-check.js
-HARDWARE.md
+wishlist.js
 vercel.json
 assets/
 ```
@@ -62,9 +59,6 @@ assets/
 Проверь после публикации:
 
 - главная нормально оформлена, изображения/шрифты и CSS не дают 404;
-- «Проверить ПК» открывает нужную секцию;
-- полные модели из подсказок выбираются, результат показывает черновую оценку;
-- неизвестный Xeon/GPU не выдаётся за гарантированно подходящий;
 - вишлист добавляется и сохраняется после обновления страницы;
 - Telegram ведёт на `https://t.me/temka_play_official1`;
 - Windows-ссылка ведёт на настоящий опубликованный релиз. Пока 1.5.6 не выпущена, корректно видеть 1.5.5;

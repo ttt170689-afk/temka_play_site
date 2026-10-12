@@ -20,7 +20,7 @@
       ]
     },
     {
-      "source": "/(app.js|site-config.js|styles.css|hardware.css|hardware-data.js|hardware-check.js)",
+      "source": "/(app.js|site-config.js|styles.css|wishlist.js|index.html|fantazia.html|fantazia.css|fantazia.js)",
       "headers": [
         {
           "key": "Cache-Control",

@@ -26,8 +26,7 @@
     dialog.addEventListener('close', () => {if (!$('dialog[open]')) document.body.classList.remove('modal-open');});
   });
   const games = {
-    temkaworld: {title: 'TemkaWorld', monogram: 'TW.', tag: 'СЮЖЕТНЫЙ ХОРРОР · КООП', description: 'Вернись в заброшенный парк аттракционов, где когда-то всё изменилось. Записка Артёма, Золотой Ключ и Секретный Бункер складываются в историю, которую предстоит раскрыть. Автор проекта — temka_play. Сюжетные приключения и кооператив находятся в разработке.', features: ['Заброшенный парк', 'Сюжет и загадки', 'Автор: temka_play']},
-    fantazia: {title: 'Fantazia RP 3D', monogram: 'F.', tag: 'ФЭНТЕЗИ · РОЛЕПЛЕЙ · GODOT ENGINE', description: 'Трёхмерный фэнтези-ролеплей на Godot Engine от temka_play. Королевство, где игроки смогут выбирать роль, объединяться во фракции и писать общую историю. Торговля, репутация и жизнь сообщества — часть задуманного мира. Проект развивается; состав возможностей ещё может измениться.', features: ['Godot Engine', '3D-моделирование', 'Фэнтези-королевство', 'Автор: temka_play']}
+    temkaworld: {title: 'TemkaWorld', monogram: 'TW.', tag: 'СЮЖЕТНЫЙ ХОРРОР · КООП', description: 'Вернись в заброшенный парк аттракционов, где когда-то всё изменилось. Записка Артёма, Золотой Ключ и Секретный Бункер складываются в историю, которую предстоит раскрыть. Автор проекта — temka_play. Сюжетные приключения и кооператив находятся в разработке.', features: ['Заброшенный парк', 'Сюжет и загадки', 'Автор: temka_play']}
   };
   $$('[data-game]').forEach(button => button.addEventListener('click', () => {
     const game = games[button.dataset.game]; if (!game) return;
